@@ -1,0 +1,71 @@
+.sound-match-game {
+  text-align: center;
+  background: url("../assets/image/bg3.png");
+  background-size: cover;
+  height: 100vh;
+}
+
+.sound-match-game h1 {
+  font-size: 40px;
+  margin-bottom: 20px;
+  padding-top: 100px;
+}
+.play-button-container {
+  display: flex;
+  justify-content: center; /* Centers the button horizontally */
+}
+
+.play-button {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: #c6553b;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-top: 50px;
+}
+
+.play-button:disabled {
+  background-color: #95a5a6;
+  cursor: not-allowed;
+}
+
+.play-icon {
+  border-left: 40px solid white;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  position: relative;
+  left: 5px;
+}
+
+.image-options {
+  display: auto;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.image-option {
+  width: 250px;
+  height: 100px;
+  margin: 50px;
+  cursor: pointer;
+  transition: transform 0.2s;
+  border: 10px;
+}
+
+.image-option:hover {
+  transform: scale(1.1);
+}
+
+.image-option.selected {
+  border: 3px solid #c6553b;
+}
+
+.feedback {
+  font-size: 30px;
+  color: green;
+}

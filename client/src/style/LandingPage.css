@@ -1,0 +1,125 @@
+.bg {
+  height: 100vh;
+  background: url("../assets/image/bg4.png");
+  background-size: cover;
+}
+
+.navbarbrand {
+  background-color: #c6553b;
+  padding: 20px;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px;
+  background-color: #c6553b !important;
+}
+.navbar-center {
+  flex: 1;
+  text-align: center;
+}
+.back-arrow-navbar {
+  position: absolute;
+  left: 50px;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+  font-size: 40px;
+}
+.intro {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("../assets/image/bg4.png");
+  background-size: cover;
+  height: 100vh;
+}
+
+.title {
+  font-size: 5em;
+  font-weight: 700;
+  color: #000000;
+  text-shadow: 1px 1px 3px 3%;
+  line-height: 1.2;
+}
+.title1 {
+  font-size: 5em;
+  font-weight: 700;
+  color: #c6553b;
+  text-shadow: 1px 1px 3px 3%;
+  line-height: 1.2;
+}
+.card-title-back {
+  color: #fff !important;
+  align-items: center;
+  padding-bottom: 15px;
+}
+.note {
+  font-size: 2em;
+  color: #000000;
+  text-shadow: 1px 1px 3px 3%;
+  line-height: 1.5;
+  font-weight: 300;
+}
+
+.category {
+  height: 100vh;
+  background: url("../assets/image/bg2.png");
+  background-size: cover;
+}
+
+.categoryImage {
+  width: 375px;
+  height: 225px;
+  margin: 10px;
+  padding: 10px;
+}
+
+.images {
+  width: 355px;
+  height: 200px;
+  padding: 10px;
+}
+.btn-custom {
+  background-color: #c6553b !important;
+  color: #fff !important;
+}
+.btn-custom1 {
+  background-color: #fff !important;
+  color: #c6553b !important;
+}
+
+.mode {
+  height: 85vh;
+  background: url("../assets/image/bg3.png");
+}
+.modeImage1 {
+  width: 550px;
+  height: 500px;
+  margin: 20px;
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+  background-color: #c6553b !important;
+}
+
+.modeImage {
+  width: 550px;
+  height: 500px;
+  margin: 20px;
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.modeimages {
+  width: 400px;
+  height: 275px;
+  padding: 20px;
+}

@@ -1,0 +1,61 @@
+.crossword-contain {
+  padding: 50px;
+  background: url("../assets/image/bg3.png");
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-size: cover;
+}
+
+.crossword-game-container {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  justify-content: center;
+}
+
+.crossword {
+  justify-content: center;
+  align-items: center;
+}
+
+.crossword .react-crossword-container {
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.crossword-clues-with-images {
+  margin-left: 20px;
+}
+
+.crossword-clue {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.crossword-clue-image {
+  width: 300px;
+  margin-right: 10px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-center button {
+  background-color: #c6553b;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.btn-primary {
+  background-color: #c6553b;
+}

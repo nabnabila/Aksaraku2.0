@@ -1,0 +1,74 @@
+.image-cover {
+  background: url("../assets/image/bg3.png");
+  min-height: 100vh;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+}
+.image-clue-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+.image-clue-container-header {
+  font-size: 35px;
+  margin-bottom: 20px;
+  padding-top: 70px;
+}
+.image-clue-container-header1 {
+  text-align: center;
+  color: #333;
+  font-size: 22px;
+}
+
+.image-clue-image {
+  max-width: 350px;
+  margin-bottom: 30px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 10px;
+}
+
+.option.image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 10px;
+  margin: 10px auto;
+}
+
+.option-image-container img {
+  width: 250px !important;
+  height: 250px !important;
+  border-radius: 10px;
+  border: solid #333;
+  transition: transform 0.3s ease;
+}
+
+.option-image-container img:hover {
+  transform: scale(1.05);
+}
+
+.feedback-message {
+  font-size: 25px;
+  color: #28a745;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.image-next-button {
+  background-color: #c6553b;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.next-button:hover {
+  background-color: #95a5a6;
+}

@@ -1,0 +1,147 @@
+.wordsearch {
+  background: url("../assets/image/bg3.png");
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+  padding: 10px;
+}
+
+.wordsearch body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150vh;
+  margin: 0;
+}
+
+.wordsearch h1 {
+  text-align: center;
+  color: #333;
+  padding-top: 50px;
+  font-size: 2.5rem;
+}
+
+.wordsearch h2 {
+  text-align: center;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.wordsearch-clues {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 20px 0;
+  max-width: 100%;
+}
+
+.wordsearch-clue {
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: 0px;
+}
+
+.wordsearch-clue-image {
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  width: 200px !important;
+  height: auto;
+  display: block;
+}
+
+/* Fix grid layout */
+.wordsearch-grid {
+  display: grid;
+  gap: 5px;
+  justify-content: center;
+  grid-template-columns: repeat(15, 40px);
+  grid-template-rows: auto;
+  justify-items: center;
+  margin: 20px auto;
+  width: max-content;
+}
+
+/* Row and cell styling */
+.wordseach-row {
+  display: contents;
+}
+
+.cell {
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  border: 2px solid #ddd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.cell.selected {
+  background-color: #c6553b;
+  border-color: #c6553b;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #c6553b;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.wordsearch button {
+  display: block;
+  margin: 5px auto;
+}
+
+button:hover {
+  background-color: #95a5a6;
+}
+
+.wordsearch-found-words {
+  text-align: center;
+}
+
+@media (max-width: 1200px) {
+  .wordsearch-grid {
+    width: 80vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .wordsearch-grid {
+    width: 70vw;
+    grid-template-columns: repeat(15, 1fr);
+    grid-template-rows: repeat(15, 1fr);
+  }
+
+  .cell {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .wordsearch-grid {
+    width: 90vw;
+    grid-template-columns: repeat(15, 1fr);
+    grid-template-rows: repeat(15, 1fr);
+  }
+
+  .cell {
+    font-size: 0.8rem;
+  }
+}

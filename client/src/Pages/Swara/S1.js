@@ -1,4 +1,4 @@
-import SwaraNglegena from "../../components/Swara/s1";
+import Swara from "../../components/Swara/s1";
 import "../../App.css";
 import "../../style/SoundMatchGame.css";
 import { Link } from "react-router-dom";
@@ -20,7 +20,7 @@ function IsiKuis5A() {
       </div>
       {/* mode */}
       <div>
-        <SwaraNglegena />
+        <Swara nextPagePath="/games/swara/2" />
       </div>
       {/* mode */}
     </div>

@@ -21,7 +21,7 @@ function IsiKuis3B() {
 
       {/* mode */}
       <div>
-        <Memory3 />
+        <Memory3 nextPagePath="/games/memory/4" />
       </div>
       {/* mode */}
     </div>

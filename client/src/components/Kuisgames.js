@@ -58,7 +58,7 @@ const Kuisgames = () => {
               <Image src={memoryImage} alt="memory" className="modeimages" />
               <div>
                 <div className="p-1 m-1">
-                  <Card.Title className="text-center">Memory Games</Card.Title>
+                  <Card.Title className="text-center">Ngeling-eling</Card.Title>
                 </div>
                 <div className=" text-center">
                   <a href="/games/memory" class="btn btn-custom">

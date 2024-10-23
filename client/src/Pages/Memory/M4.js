@@ -20,7 +20,7 @@ function IsiKuis3C() {
       </div>
       {/* mode */}
       <div>
-        <Memory4 />
+        <Memory4 nextPagePath="/games/memory/5" />
       </div>
       {/* mode */}
     </div>

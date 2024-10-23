@@ -69,3 +69,43 @@
   font-size: 30px;
   color: green;
 }
+.timer {
+  margin-top: 15px;
+}
+.sound-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 50px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+.image-popup-button {
+  background-color: #c6553b;
+  color: white;
+  border: none;
+  margin-right: 10px;
+  margin-left: 10px;
+  font-size: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.image-popup-buttonn:hover {
+  background-color: #95a5a6;
+}
+
+.sound-instruction-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 50px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}

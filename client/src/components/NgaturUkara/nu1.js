@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import pw1 from "../../assets/image/kuis/pagelaranwayang1.png";
 import pw2 from "../../assets/image/kuis/pagelaranwayang2.png";
@@ -6,32 +6,47 @@ import pw3 from "../../assets/image/kuis/pagelaranwayang3.png";
 import pw4 from "../../assets/image/kuis/pagelaranwayang4.png";
 import pw5 from "../../assets/image/kuis/pagelaranwayang5.png";
 
-const question = "Tatanen aksarane supaya dadi tembung 'Pagelaran Wayang'";
-const images = [
-  { id: 1, src: pw1, isCorrect: true },
-  { id: 2, src: pw2, isCorrect: true },
-  { id: 3, src: pw3, isCorrect: false },
-  { id: 4, src: pw4, isCorrect: false },
-  { id: 5, src: pw5, isCorrect: false },
-];
+// Shuffle function
+function shuffleArray(array) {
+  return array.sort(() => Math.random() - 0.5);
+}
 
-function NgaturUkara() {
+const NgaturUkara = ({ nextPagePath }) => {
+  const navigate = useNavigate();
+
+  const question = "Tatanen aksarane supaya dadi tembung 'Pagelaran Wayang'";
+  const images = [
+    { id: 1, src: pw1, isCorrect: true },
+    { id: 2, src: pw2, isCorrect: true },
+    { id: 3, src: pw3, isCorrect: false },
+    { id: 4, src: pw4, isCorrect: false },
+    { id: 5, src: pw5, isCorrect: false },
+  ];
+
   const [shuffledImages, setShuffledImages] = useState(
     shuffleArray([...images])
   );
   const [userArrangement, setUserArrangement] = useState([]);
-  const [feedback, setFeedback] = useState(null); // Feedback state
-  const navigate = useNavigate(); // Initialize useNavigate
+  const [feedback, setFeedback] = useState(null);
+  const [score, setScore] = useState(0);
+  const [elapsedTime, setElapsedTime] = useState(0);
+  const [timer, setTimer] = useState(null);
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [isInstructionVisible, setIsInstructionVisible] = useState(true);
 
-  // Shuffle function
-  function shuffleArray(array) {
-    return array.sort(() => Math.random() - 0.5);
-  }
+  // Start timer
+  const startTimer = () => {
+    const interval = setInterval(() => {
+      setElapsedTime((prev) => prev + 1000);
+    }, 1000);
+    setTimer(interval);
+  };
 
   // Handle image click
   function handleImageClick(image) {
     if (!userArrangement.includes(image)) {
       setUserArrangement((prev) => [...prev, image]);
+      if (userArrangement.length === 0) startTimer(); // Start timer on first click
     }
   }
 
@@ -50,11 +65,22 @@ function NgaturUkara() {
       JSON.stringify(userArrangement.map((img) => img.id)) ===
       JSON.stringify(correctOrder.map((img) => img.id))
     ) {
-      setFeedback("Bener!"); // Correct feedback
+      setFeedback("Bener!");
+      const calculatedScore = calculateScore(elapsedTime);
+      setScore(calculatedScore);
+      clearInterval(timer); // Stop the timer on correct answer
+      setIsPopupVisible(true); // Show popup
     } else {
-      setFeedback("Coba Maneh Yuk!"); // Incorrect feedback
+      setFeedback("Coba Maneh Yuk!");
+      // Allow retry
+      setUserArrangement([]); // Reset user arrangement on incorrect
     }
   }
+
+  // Calculate score based on elapsed time
+  const calculateScore = (duration) => {
+    return Math.max(0, 100 - Math.floor(duration / 1000) * 1); // Score based on seconds
+  };
 
   // Clear the user's selection
   function clearSelection() {
@@ -68,14 +94,49 @@ function NgaturUkara() {
   }
 
   // Navigate to the next page
-  function goToNextPage() {
-    navigate("/aksaranglegena/kuis1/utakatikgathuknglegena"); // Use navigate instead of history.push
+  function handlePopupAction(action) {
+    setIsPopupVisible(false);
+    if (action === "next") {
+      navigate(nextPagePath);
+    } else {
+      navigate("/games/ngaturukara");
+    }
   }
+
+  // Format elapsed time
+  const formatTime = (time) => {
+    const seconds = Math.floor(time / 1000);
+    return `${seconds} detik`;
+  };
+  // Cleanup timer on component unmount
+  useEffect(() => {
+    return () => clearInterval(timer);
+  }, [timer]);
+
+  const closeInstructionPopup = () => {
+    setIsInstructionVisible(false);
+  };
 
   return (
     <div className="arrangewords">
+      {isInstructionVisible && (
+        <div className="ukara-instruction-popup">
+          <h2>Tata Cara Bermain</h2>
+          <p>
+            Atur aksara hingga menjadi rangkaian aksara sesuai dengan kalimat
+            yang tertera
+          </p>
+          <p>Tidak semua aksara diperlukan untuk membentuk rangkaiannya</p>
+          <p>
+            Anda bisa melakukan pengecekan untuk mengetahui apakah yang aksara
+            yang diatur sudah benar dengan menekan tombol "cek urutan"
+          </p>
+          <p>Nilai ditentukan dari berapa lama anda menyelesaikan permainan</p>
+          <button onClick={closeInstructionPopup}>Close</button>
+        </div>
+      )}
       <h1 className="arrangewords-header">Ngatur Ukara 1</h1>
-      <p className="arrangewords-question-text">{question}</p>{" "}
+      <p className="arrangewords-question-text">{question}</p>
       <div className="arrangewords-image-list">
         {shuffledImages.map((image, index) => (
           <img
@@ -116,11 +177,32 @@ function NgaturUkara() {
         <button onClick={clearSelection}>Hapus Pilihan</button>
         <button onClick={reshuffleImages}>Acak Gambar</button>
       </div>
-      {feedback && <p className="feedback">{feedback}</p>}{" "}
-      {/* Feedback display */}
-      {feedback === "Bener!" && <button onClick={goToNextPage}>Lanjut</button>}
+      {/* Display elapsed time */}
+      <div className="timer">
+        <h3>Waktu: {formatTime(elapsedTime)}</h3>
+      </div>
+      {feedback && <p className="feedback">{feedback}</p>}
+
+      {isPopupVisible && (
+        <div className="ukara-popup">
+          <h2>Nilai: {score}</h2>
+          <p>Waktu: {formatTime(elapsedTime)}</p>
+          <button
+            className="ukara-popup-button"
+            onClick={() => handlePopupAction("back")}
+          >
+            Kembali
+          </button>
+          <button
+            className="ukara-popup-button"
+            onClick={() => handlePopupAction("next")}
+          >
+            Level Selanjutnya
+          </button>
+        </div>
+      )}
     </div>
   );
-}
+};
 
 export default NgaturUkara;

@@ -10,7 +10,7 @@ const PilihanKuis3 = () => {
     <div className="mode">
       <Container>
         <br />
-        <h1 className="mt-5 mb-0 text-center">Memory Games</h1>
+        <h1 className="mt-5 mb-0 text-center">Ngeling-eling</h1>
         <br />
         <Row>
           <Col md={4} id="categories">

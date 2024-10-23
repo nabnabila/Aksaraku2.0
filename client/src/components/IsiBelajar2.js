@@ -41,26 +41,26 @@ import contohba from "../assets/image/aksara2/contohpasanganba.png";
 import contohtha from "../assets/image/aksara2/contohpasangantha.png";
 import contohnga from "../assets/image/aksara2/contohpasangannga.png";
 // Import audios
-import ho from "../assets/audio/audio1/ho.mp3";
-import no from "../assets/audio/audio1/no.mp3";
-import co from "../assets/audio/audio1/co.mp3";
-import ro from "../assets/audio/audio1/ro.mp3";
-import ko from "../assets/audio/audio1/ko.mp3";
-import doo from "../assets/audio/audio1/do.mp3";
-import to from "../assets/audio/audio1/to.mp3";
-import so from "../assets/audio/audio1/so.mp3";
-import wo from "../assets/audio/audio1/wo.mp3";
-import lo from "../assets/audio/audio1/lo.mp3";
-import po from "../assets/audio/audio1/po.mp3";
-import dho from "../assets/audio/audio1/dho.mp3";
-import jo from "../assets/audio/audio1/jo.mp3";
-import yo from "../assets/audio/audio1/yo.mp3";
-import nyo from "../assets/audio/audio1/nyo.mp3";
-import mo from "../assets/audio/audio1/mo.mp3";
-import go from "../assets/audio/audio1/go.mp3";
-import bo from "../assets/audio/audio1/bo.mp3";
-import tho from "../assets/audio/audio1/to.mp3";
-import ngo from "../assets/audio/audio1/ngo.mp3";
+import ho from "../assets/audio/audio1/ha.m4a";
+import no from "../assets/audio/audio1/na.m4a";
+import co from "../assets/audio/audio1/ca.m4a";
+import ro from "../assets/audio/audio1/ra.m4a";
+import ko from "../assets/audio/audio1/ka.m4a";
+import doo from "../assets/audio/audio1/da.m4a";
+import to from "../assets/audio/audio1/ta.m4a";
+import so from "../assets/audio/audio1/sa.m4a";
+import wo from "../assets/audio/audio1/wa.m4a";
+import lo from "../assets/audio/audio1/la.m4a";
+import po from "../assets/audio/audio1/pa.m4a";
+import dho from "../assets/audio/audio1/dha.m4a";
+import jo from "../assets/audio/audio1/ja.m4a";
+import yo from "../assets/audio/audio1/ya.m4a";
+import nyo from "../assets/audio/audio1/nya.m4a";
+import mo from "../assets/audio/audio1/ma.m4a";
+import go from "../assets/audio/audio1/ga.m4a";
+import bo from "../assets/audio/audio1/ba.m4a";
+import tho from "../assets/audio/audio1/ta.m4a";
+import ngo from "../assets/audio/audio1/nga.m4a";
 
 const IsiBelajar2 = () => {
   const cards = [

@@ -18,14 +18,14 @@ import contohga from "../assets/image/aksara4/contohpasanganga.png";
 import contohba from "../assets/image/aksara4/contohpasanganba.png";
 
 // Import audios
-import no from "../assets/audio/audio1/no.mp3";
-import ko from "../assets/audio/audio1/ko.mp3";
-import to from "../assets/audio/audio1/to.mp3";
-import so from "../assets/audio/audio1/so.mp3";
-import po from "../assets/audio/audio1/po.mp3";
-import nyo from "../assets/audio/audio1/nyo.mp3";
-import go from "../assets/audio/audio1/go.mp3";
-import bo from "../assets/audio/audio1/bo.mp3";
+import no from "../assets/audio/audio1/na.m4a";
+import ko from "../assets/audio/audio1/ka.m4a";
+import to from "../assets/audio/audio1/ta.m4a";
+import so from "../assets/audio/audio1/sa.m4a";
+import po from "../assets/audio/audio1/pa.m4a";
+import nyo from "../assets/audio/audio1/nya.m4a";
+import go from "../assets/audio/audio1/ga.m4a";
+import bo from "../assets/audio/audio1/ba.m4a";
 
 const IsiBelajar4 = () => {
   const cards = [

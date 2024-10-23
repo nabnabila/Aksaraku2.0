@@ -8,6 +8,7 @@ const UserComponent = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
+  const [userId, setUserId] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,8 +17,9 @@ const UserComponent = () => {
     try {
       if (isLogin) {
         const response = await login(email, password);
+        setUserId(response.userId);
         alert("Berhasil Masuk");
-        navigate("/Homepage");
+        navigate("/Homepage", { state: { userId: response.userId } });
       } else {
         const response = await signup(email, password);
         alert("Berhasil Daftar");

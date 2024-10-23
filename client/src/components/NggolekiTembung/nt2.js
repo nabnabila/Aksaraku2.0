@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import passie from "../../assets/image/kuis/passie.png";
 import tablau from "../../assets/image/kuis/tablau.png";
 import sendratari from "../../assets/image/kuis/sendratari.png";
 import sandiwara from "../../assets/image/kuis/sandiwara.png";
 
-const NggolekiTembang2 = () => {
+const NggolekiTembang2 = ({ nextPagePath }) => {
+  const navigate = useNavigate();
   const initialClues = [
     { word: "PASSIE", image: passie },
     { word: "TABLAU", image: tablau },
@@ -15,11 +16,23 @@ const NggolekiTembang2 = () => {
 
   const [gridSize, setGridSize] = useState(15);
   const [grid, setGrid] = useState([]);
-
   const [foundWords, setFoundWords] = useState([]);
   const [selectedCells, setSelectedCells] = useState([]);
-  const [clues, setClues] = useState(initialClues);
-  const navigate = useNavigate();
+  const [elapsedTime, setElapsedTime] = useState(0);
+  const timerRef = useRef(null);
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [score, setScore] = useState(0);
+  const [isInstructionVisible, setIsInstructionVisible] = useState(true);
+
+  useEffect(() => {
+    const newGrid = createEmptyGrid();
+    placeWordsInGrid(newGrid);
+    fillGridWithRandomLetters(newGrid);
+    setGrid(newGrid);
+    startTimer();
+
+    return () => clearInterval(timerRef.current); // Cleanup on unmount
+  }, [gridSize]);
 
   const createEmptyGrid = () => {
     return Array.from({ length: gridSize }, () =>
@@ -27,13 +40,12 @@ const NggolekiTembang2 = () => {
     );
   };
 
-  // Place words into the grid
   const placeWordsInGrid = (grid) => {
-    clues.forEach((clue) => {
+    initialClues.forEach((clue) => {
       const word = clue.word;
       let placed = false;
       while (!placed) {
-        const direction = Math.floor(Math.random() * 3); // 0 = horizontal, 1 = vertical, 2 = diagonal
+        const direction = Math.floor(Math.random() * 3);
         const row = Math.floor(Math.random() * gridSize);
         const col = Math.floor(Math.random() * gridSize);
 
@@ -46,13 +58,13 @@ const NggolekiTembang2 = () => {
   };
 
   const canPlaceWord = (word, row, col, direction, grid) => {
-    if (direction === 0 && col + word.length > gridSize) return false;
-    if (direction === 1 && row + word.length > gridSize) return false;
+    if (direction === 0 && col + word.length > gridSize) return false; // Horizontal
+    if (direction === 1 && row + word.length > gridSize) return false; // Vertical
     if (
       direction === 2 &&
       (row + word.length > gridSize || col + word.length > gridSize)
     )
-      return false;
+      return false; // Diagonal
 
     for (let i = 0; i < word.length; i++) {
       const currentRow = row + (direction === 1 || direction === 2 ? i : 0);
@@ -87,12 +99,11 @@ const NggolekiTembang2 = () => {
     }
   };
 
-  useEffect(() => {
-    const newGrid = createEmptyGrid();
-    placeWordsInGrid(newGrid);
-    fillGridWithRandomLetters(newGrid);
-    setGrid(newGrid);
-  }, [clues, gridSize]);
+  const startTimer = () => {
+    timerRef.current = setInterval(() => {
+      setElapsedTime((prev) => prev + 1000);
+    }, 1000);
+  };
 
   const handleCellClick = (row, col) => {
     const cellIndex = selectedCells.findIndex(
@@ -116,32 +127,67 @@ const NggolekiTembang2 = () => {
     const selectedWord = selectedCells
       .map(({ row, col }) => grid[row][col])
       .join("");
-    const foundClue = clues.find((clue) => clue.word === selectedWord);
 
-    if (foundClue) {
-      setFoundWords([...foundWords, foundClue.word]);
+    // Check if the selected word matches any clue
+    const foundClue = initialClues.find((clue) => clue.word === selectedWord);
+
+    if (foundClue && !foundWords.includes(foundClue.word)) {
+      setFoundWords((prev) => [...prev, foundClue.word]);
       setSelectedCells([]);
     }
   }, [selectedCells]);
-  const allWordsFound = foundWords.length === clues.length;
 
-  const goToNextPage = () => {
-    navigate("/pasanganaksaranglegena/kuis2/ngaturukarapasangannglegena");
+  const allWordsFound = foundWords.length === initialClues.length;
+
+  const calculateScore = (duration) => {
+    return Math.max(0, 100 - Math.floor(duration / 1000) * 0.2);
   };
 
+  useEffect(() => {
+    if (allWordsFound) {
+      clearInterval(timerRef.current); // Stop the timer when all words are found
+      const calculatedScore = calculateScore(elapsedTime);
+      setScore(calculatedScore);
+      setIsPopupVisible(true); // Show popup
+    }
+  }, [allWordsFound, elapsedTime]);
+
+  const handlePopupAction = (action) => {
+    setIsPopupVisible(false);
+    if (action === "next") {
+      navigate(nextPagePath);
+    } else {
+      navigate("/games/nggolekitembung");
+    }
+  };
+  const closeInstructionPopup = () => {
+    setIsInstructionVisible(false);
+  };
   return (
     <div className="wordsearch">
-      <h1>Nggoleki Tembung 2</h1>
+      {isInstructionVisible && (
+        <div className="search-instruction-popup">
+          <h2>Tata Cara Bermain</h2>
+          <p>
+            Carilah kata dalam kumpulan huruf sesuai dengan yang aksara
+            ditampilkan
+          </p>
+          <p>Kata dapat ditemukan secara horizontal, vertical, dan diagonal</p>
+          <p>Nilai ditentukan dari berapa lama anda menyelesaikan permainan</p>
+          <button onClick={closeInstructionPopup}>Close</button>
+        </div>
+      )}
+      <h1>Nggoleki Tembung 1</h1>
       <h2>Goleki tembung sing cocog karo aksara sing ditampilake</h2>
 
       <div className="wordsearch-clues">
-        {clues.map((clue, index) => (
-          <div key={index} className="clue">
+        {initialClues.map((clue, index) => (
+          <div key={index} className="wordsearch-clue">
             <img
               className="wordsearch-clue-image"
               src={clue.image}
               alt={clue.word}
-              style={{ width: "50px" }}
+              style={{ width: "20px" }}
             />
           </div>
         ))}
@@ -170,6 +216,7 @@ const NggolekiTembang2 = () => {
           ))}
         </div>
         <button onClick={clearSelection}>Hapus Pilihan</button>
+
         <div className="wordsearch-found-words">
           <h2>Tembung:</h2>
           {foundWords.map((word, index) => (
@@ -177,14 +224,32 @@ const NggolekiTembang2 = () => {
               {word}
             </span>
           ))}
-
-          {allWordsFound && (
-            <button onClick={goToNextPage} className="next-page-button">
-              Lanjut
-            </button>
-          )}
         </div>
       </div>
+
+      {/* Timer display */}
+      <div className="timer">
+        <h3>Waktu: {Math.floor(elapsedTime / 1000)} detik</h3>
+      </div>
+
+      {/* Popup for score */}
+      {isPopupVisible && (
+        <div className="search-popup">
+          <h2>Nilai: {score}</h2>
+          <button
+            className="search-popup-button"
+            onClick={() => handlePopupAction("back")}
+          >
+            Kembali
+          </button>
+          <button
+            className="search-popup-button"
+            onClick={() => handlePopupAction("next")}
+          >
+            Level Selanjutnya
+          </button>
+        </div>
+      )}
     </div>
   );
 };

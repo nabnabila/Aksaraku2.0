@@ -2,7 +2,7 @@ import "../../App.css";
 import "../../style/SoundMatchGame.css";
 import { Link } from "react-router-dom";
 import NavigationBar from "../../components/NavigationBar";
-import SwaraMurda from "../../components/Swara/s4";
+import Swara from "../../components/Swara/s4";
 function IsiKuis5C() {
   return (
     <div>
@@ -20,7 +20,7 @@ function IsiKuis5C() {
       </div>
       {/* mode */}
       <div>
-        <SwaraMurda />
+        <Swara nextPagePath="/games/swara/5" />
       </div>
       {/* mode */}
     </div>

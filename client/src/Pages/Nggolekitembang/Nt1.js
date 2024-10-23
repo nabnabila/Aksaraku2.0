@@ -20,7 +20,7 @@ function IsiKuis1A() {
       </div>
       {/* mode */}
       <div>
-        <NggolekiTembang1 />
+        <NggolekiTembang1 nextPagePath="/games/nggolekitembung/2" />
       </div>
       {/* mode */}
     </div>

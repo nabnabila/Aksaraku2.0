@@ -20,9 +20,7 @@ function IsiKuis4B() {
       </div>
       {/* mode */}
       <div>
-        <NyocokakeGambar
-          nextPagePath={"/pasanganaksaranglegena/kuis2/nyocokakeswara"}
-        />
+        <NyocokakeGambar nextPagePath={"/games/gambar/4"} />
       </div>
       {/* mode */}
     </div>

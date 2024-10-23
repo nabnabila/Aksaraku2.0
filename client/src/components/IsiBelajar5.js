@@ -30,20 +30,20 @@ import contohcecak from "../assets/image/aksara5/contohcecak.png";
 import contohpangkon from "../assets/image/aksara5/contohpangkon.png";
 
 // Import audios
-import Wulu from "../assets/audio/audio2/wulu.mp3";
-import Pepet from "../assets/audio/audio2/pepet.mp3";
-import Suku from "../assets/audio/audio2/suku.mp3";
-import Taling from "../assets/audio/audio2/taling.mp3";
-import Talingtarung from "../assets/audio/audio2/talingtarung.mp3";
-import Cakra from "../assets/audio/audio2/cakra.mp3";
-import Cakrakeret from "../assets/audio/audio2/cakrakeret.mp3";
-import Pengkal from "../assets/audio/audio2/pengkal.mp3";
-import Panjinganwa from "../assets/audio/audio2/panjinganwa.mp3";
-import Panjinganla from "../assets/audio/audio2/panjinganla.mp3";
-import Wigyan from "../assets/audio/audio2/wigyan.mp3";
-import Layar from "../assets/audio/audio2/layar.mp3";
-import Cecak from "../assets/audio/audio2/cecak.mp3";
-import Pangkon from "../assets/audio/audio2/pangkon.mp3";
+import Wulu from "../assets/audio/audio2/wulu.m4a";
+import Pepet from "../assets/audio/audio2/pepet.m4a";
+import Suku from "../assets/audio/audio2/suku.m4a";
+import Taling from "../assets/audio/audio2/taling.m4a";
+import Talingtarung from "../assets/audio/audio2/talingtarung.m4a";
+import Cakra from "../assets/audio/audio2/cakra.m4a";
+import Cakrakeret from "../assets/audio/audio2/cakrakeret.m4a";
+import Pengkal from "../assets/audio/audio2/pengkal.m4a";
+import Panjinganwa from "../assets/audio/audio2/panjinganwa.m4a";
+import Panjinganla from "../assets/audio/audio2/panjinganla.m4a";
+import Wigyan from "../assets/audio/audio2/wigyan.m4a";
+import Layar from "../assets/audio/audio2/layar.m4a";
+import Cecak from "../assets/audio/audio2/cecak.m4a";
+import Pangkon from "../assets/audio/audio2/pangkon.m4a";
 
 const IsiBelajar5 = () => {
   const cards = [

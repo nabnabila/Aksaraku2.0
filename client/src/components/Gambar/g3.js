@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import mk1 from "../../assets/image/kuis/malinkundang1.png";
 import mk from "../../assets/image/kuis/malinkundang.jpeg";
@@ -7,9 +7,17 @@ import sa from "../../assets/image/kuis/sangkuriang.jpeg";
 import tm from "../../assets/image/kuis/timunmas.jpeg";
 import "../../style/ImageMatch.css";
 
+// Shuffle function to shuffle everytime the page is open
+const shuffleArray = (array) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+};
 const NyocokakeGambar = ({ nextPagePath }) => {
   const navigate = useNavigate();
-  const pairs = [
+  const originalPairs = [
     {
       clueImage: mk1,
       options: [
@@ -20,30 +28,82 @@ const NyocokakeGambar = ({ nextPagePath }) => {
       ],
     },
   ];
+  // State for shuffled pairs, initialized only once everytime the game starts
+  const [shuffledPairs, setShuffledPairs] = useState(
+    originalPairs.map((pair) => ({
+      clueImage: pair.clueImage,
+      options: shuffleArray([...pair.options]), // Shuffle options for each pair
+    }))
+  );
 
   const [currentPairIndex, setCurrentPairIndex] = useState(0);
   const [selectedImage, setSelectedImage] = useState(null);
   const [isAnswerCorrect, setIsAnswerCorrect] = useState(null);
+  const [elapsedTime, setElapsedTime] = useState(0);
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [finalScore, setFinalScore] = useState(0);
+  const [timer, setTimer] = useState(null);
+  const [isInstructionVisible, setIsInstructionVisible] = useState(true);
 
-  const currentPair = pairs[currentPairIndex];
+  const currentPair = shuffledPairs[currentPairIndex];
 
-  const handleImageClick = (option) => {
+  // Stopwatch effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setElapsedTime((prev) => prev + 1000);
+    }, 1000);
+    setTimer(interval);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleImageClick = async (option) => {
     setSelectedImage(option.id);
     setIsAnswerCorrect(option.isCorrect);
-  };
-
-  const handleNext = () => {
-    if (currentPairIndex < pairs.length - 1) {
-      setSelectedImage(null);
-      setIsAnswerCorrect(null);
-      setCurrentPairIndex(currentPairIndex + 1);
-    } else {
-      navigate(nextPagePath);
+    if (option.isCorrect) {
+      //stop time if correct option is chosen
+      clearInterval(timer);
+      if (currentPairIndex < shuffledPairs.length - 1) {
+        setSelectedImage(null);
+        setIsAnswerCorrect(null);
+        setCurrentPairIndex(currentPairIndex + 1);
+      } else {
+        //shows score
+        const finalElapsedTime = elapsedTime / 1000;
+        const calculatedScore = calculateScore(finalElapsedTime);
+        setFinalScore(calculatedScore);
+        setIsPopupVisible(true);
+      }
     }
+  };
+  //score logic
+  const calculateScore = (duration) => {
+    return Math.max(0, 100 - Math.floor(duration * 1));
+  };
+  //page navigation
+  const handlePopupAction = (action) => {
+    setIsPopupVisible(false);
+    if (action === "next") {
+      navigate(nextPagePath);
+    } else {
+      navigate("/games/gambar");
+    }
+  };
+  const closeInstructionPopup = () => {
+    setIsInstructionVisible(false);
   };
 
   return (
     <div className="image-cover">
+      {isInstructionVisible && (
+        <div className="image-instruction-popup">
+          <h2>Tata Cara Bermain</h2>
+          <p>Pilih gambar yang sesuai dengan aksara yang diberikan.</p>
+          <p>Setelah memilih gambar yang benar, anda akan mendapatkan nilai</p>
+          <p>Nilai ditentukan dari berapa lama anda menyelesaikan permainan</p>
+          <button onClick={closeInstructionPopup}>Close</button>
+        </div>
+      )}
       <div className="image-clue-container">
         <h1 className="image-clue-container-header">Nyocokake Gambar 3</h1>
         <h2 className="image-clue-container-header1">
@@ -75,14 +135,32 @@ const NyocokakeGambar = ({ nextPagePath }) => {
             >
               {isAnswerCorrect ? "Bener!" : "Coba Maneh Yok!"}
             </p>
-            {isAnswerCorrect && (
-              <button className="image-next-button" onClick={handleNext}>
-                Lanjut
-              </button>
-            )}
           </div>
         )}
       </div>
+
+      <div className="image-score-container">
+        <h3>Waktu: {elapsedTime / 1000} detik</h3>
+      </div>
+
+      {isPopupVisible && (
+        <div className="image-popup">
+          <h2>Nilai: {finalScore}</h2>
+          <p>Kerja Bagus!</p>
+          <button
+            className="image-popup-button"
+            onClick={() => handlePopupAction("back")}
+          >
+            Kembali
+          </button>
+          <button
+            className="image-popup-button"
+            onClick={() => handlePopupAction("next")}
+          >
+            Level Selanjutnya
+          </button>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,28 +1,32 @@
 import express from "express";
 import { User } from "../models/User.js";
 import bcrypt from "bcrypt";
+import { v4 as uuidv4 } from "uuid"; // Import uuid
 const router = express.Router();
 
 // Create a new user
 router.post("/daftar", async (req, res) => {
   const { email, password } = req.body;
+  const userId = uuidv4(); // Generate a unique ID
 
   try {
-    const existinguser = await User.findOne({ email });
-    if (existinguser) {
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
       return res.status(409).json({ message: "User Sudah Terdaftar" });
     }
+
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 8);
-    const newuser = new User({ email, password: hashedPassword });
+    const newUser = new User({ email, password: hashedPassword, userId });
 
-    await newuser.save();
-    res.status(201).json({ message: "User Berhasil Dibuat" });
+    await newUser.save();
+    res.status(201).json({ message: "User Berhasil Dibuat", userId });
   } catch (error) {
     res.status(500).json({ message: "Error Saat Pendaftaran", error });
   }
 });
 
+// User login
 router.post("/masuk", async (req, res) => {
   const { email, password } = req.body;
 
@@ -38,7 +42,7 @@ router.post("/masuk", async (req, res) => {
       return res.status(401).json({ message: "Password Salah" });
     }
 
-    res.status(200).json({ message: "Masuk Berhasil" });
+    res.status(200).json({ message: "Masuk Berhasil", userId: user.userId }); // Include userId in response
   } catch (error) {
     res.status(500).json({ message: "Error Saat Masuk", error });
   }
